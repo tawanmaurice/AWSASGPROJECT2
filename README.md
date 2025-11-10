@@ -35,13 +35,17 @@ Target Group	Sends traffic to healthy EC2 instances
 Application Load Balancer	Routes web traffic to the ASG
 Public DNS	Confirms the setup is functional via browser access
 ⚙️ Step-by-Step Implementation
+
 1️⃣ VPC and Subnets
+<img width="1872" height="881" alt="111025vpc screenshot" src="https://github.com/user-attachments/assets/fada1a69-5aea-402b-92aa-6471537c4a68" />
+
 
 Created a custom VPC with two public and two private subnets across different AZs (us-east-1a and us-east-1b) for high availability.
 📸 VPC Layout Screenshot
 
 
 2️⃣ Security Groups
+
 
 Set up two Security Groups:
 
@@ -50,9 +54,10 @@ Load Balancer SG: allows inbound HTTP (80)
 EC2 SG: allows inbound traffic only from the Load Balancer SG
 
 This design prevents direct access to EC2 instances, forcing all traffic through the load balancer.
-📸 Security Group Screenshot (optional)
+
 
 3️⃣ Launch Template
+
 
 Created a Launch Template named 111025launchtemplate that included:
 
@@ -63,6 +68,8 @@ Instance Type: t3.micro
 User Data Script: Installs Apache and deploys a custom HTML file showing instance metadata and a Steph Curry GIF.
 
 📸 Launch Template Screenshot
+<img width="1902" height="912" alt="111025launchtemplate screenshot" src="https://github.com/user-attachments/assets/d9d39cb7-3329-4b6c-b768-5cd5154dec84" />
+
 
 
 4️⃣ Auto Scaling Group
@@ -77,24 +84,29 @@ Max: 6
 
 This ensures that if an instance is terminated, a new one automatically replaces it.
 📸 ASG Screenshot
+<img width="1906" height="927" alt="111025autoscalinggroup" src="https://github.com/user-attachments/assets/fd41d959-6390-45d9-99cf-582dfa433248" />
+
 
 
 5️⃣ Target Group
 
 Configured a Target Group (111025targetgroup) to register healthy instances and route web traffic.
 📸 Target Group Screenshot
+<img width="1897" height="922" alt="111025targetgroup" src="https://github.com/user-attachments/assets/00cbb4d6-d73c-4d0e-93bb-b8ebc30c733e" />
 
 
 6️⃣ Load Balancer
 
 Created an Application Load Balancer named 111025loadbalancer to distribute traffic between EC2 instances in multiple AZs.
 📸 Load Balancer Screenshot
+<img width="1917" height="872" alt="111025loadbalancer" src="https://github.com/user-attachments/assets/b062fd5c-b9a5-4f4e-898e-3898b4567ff9" />
 
 
 7️⃣ EC2 Instances
 
 Verified that EC2 instances launched correctly from the Launch Template and registered with the Target Group.
 📸 EC2 Screenshot
+<img width="1856" height="881" alt="111025ec2 screenshot" src="https://github.com/user-attachments/assets/cde307cb-264a-44f2-a976-507c482eada9" />
 
 
 8️⃣ Web Verification
@@ -102,6 +114,7 @@ Verified that EC2 instances launched correctly from the Launch Template and regi
 Accessed the load balancer DNS name to verify successful deployment:
 
 📸 Public DNS Screenshot
+<img width="1472" height="961" alt="111025dns screenshot" src="https://github.com/user-attachments/assets/e0736430-6069-4080-bfd6-7891e51572ee" />
 
 
 Public URL Example:
